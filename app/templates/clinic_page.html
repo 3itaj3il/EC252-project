@@ -1,0 +1,58 @@
+{%extends "base_patient.html" %} 
+    {%block content%}
+<body>
+
+    <!-- <header>
+        <div class="clinicHeader">
+            <h1>Hello, wish you health and wellness</h1>
+            <span></span>
+        </div>
+    </header> -->
+
+    <div class="svg-container">
+        <!-- I crated SVG with: https://codepen.io/anthonydugois/pen/mewdyZ -->
+        <svg viewbox="0 0 800 400" class="svg">
+          <path id="curve" fill="#66bfbf" d="M 800 300 Q 400 350 0 300 L 0 0 L 800 0 L 800 300 Z">
+          </path>
+        </svg>
+      </div>
+    
+      <header class="clinic-header">
+        <img src='{{ clinic.getImgUrl() }}' style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 1px 1px 1px #555;"/><h1> {{clinic.name}} Clinic</h1>
+        <div>
+            <p>{{ clinic.discr }} </p>
+            <p>Fields: {{ clinic.fields }} </p>
+            <span><span><i class="fa-solid fa-location-dot" style="color:#eaf6f6; font-size: 20px;"></i></span><a href="{{ clinic.location }}"> Location</a></span> <span><span><i class="fa-solid fa-phone" style="color:#eaf6f6; font-size: 20px;"></i></span> {{ clinic.phone }}</span>
+        </div>
+      </header>
+
+    <main class="clinic-main">
+        <div class="demo">
+            <h2 class="penName">Doctors</h2>
+            <div class="mainCard">
+              <div class="mainCardHeader"></div>
+              <div class="mainCardContent">
+                {% set doctors = clinic.getDoctors()%}
+                {%for doctor in doctors%}
+                 <div class="miniCard" id="{{doctor[0]}}">
+                    <img src="/img/{{doctor[0]}}" style="margin:0; width: 100%; height: 50%; padding:0; border-radius: 3%; box-shadow:0px 0px 3px #999;"/>
+                    <h3 style="color: #333; text-transform: capitalize;">Dr. {{doctor[2]}} {{doctor[3]}}</h3>  
+                    <div class="det">
+                        <p>Field: {{doctor[4]}}</p>
+                        <p>Works Day: {{doctor[5]}}</p>
+                        <p>Price: {{doctor[7]}} D.L</p>
+                    </div>
+                    <span style="font-size: 20px;"><span><i class="fa-solid fa-star" style="color:#f76b8a"></i></span>{{clinic.getDocev(doctor[0])}}</span>
+                    <div style="font-size: 13px;"> evalute doctor <form class="pure-form" style="all:unset" action="{{clinic.getId()}}/{{doctor[0]}}" ><input type="number" name ="ev" value="{{user.DocEv(doctor[0])}}" min="0" max="10" style="display: inline; width:min-content"> <input class="s" type="submit" value="send" style="display: inline;"> </form></div>
+                        <div class="content__footer" style="background-color: #fff;"><a href="/appointments/{{clinic.getId()}}/{{doctor[0]}}">Make an appointment</a></div>
+                </div>
+                {% endfor %}
+                
+              </div>
+            </div>
+              
+            </div>
+      </main>
+</body>
+{% endblock %}
+
