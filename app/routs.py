@@ -4,7 +4,6 @@ import io
 
 
 def routs(app):
-    x = ''
     @app.route("/")
     def r():
 
@@ -22,15 +21,11 @@ def routs(app):
                 pas = request.form.get('log-pass')
             
                 x = stuff.clinic('', pas, email)
+                
                 if x.login():
-                    session.clear()
+                    if 'clinic_info' in session:
+                        session['clinic_info']['id'] = '0000'
                     session['clinic_info'] = {
-                        'name': x.name,
-                        'email': x.email,
-                        'phone': x.phone,
-                        'location': x.location,
-                        'discr': x.discr,
-                        'fields': x.fields,
                         'id': x.getId()
                     }
                 else:
@@ -49,14 +44,9 @@ def routs(app):
                 x = stuff.clinic(name, pas, email, phone, location, discr, logo, fields)
                 
                 if(x.signin()):
-                    session.clear()
+                    if 'clinic_info' in session:
+                        session['clinic_info']['id'] = '0000'
                     session['clinic_info'] = {
-                        'name': x.name,
-                        'email': x.email,
-                        'phone': x.phone,
-                        'location': x.location,
-                        'discr': x.discr,
-                        'fields': x.fields,
                         'id': x.getId()
                     }
                 else:
@@ -76,15 +66,15 @@ def routs(app):
                 x.infoById(id)
                 x.addDoc(fname, lname, fields, days, pic, price)
 
+        
         id = session['clinic_info']['id']
         x = stuff.clinic()
         x.infoById(id)
-        return render_template('clinic.html', clinic=x)           
-
+        return render_template('clinic.html', clinic=x)
+       
 
     @app.route('/home', methods=['GET', 'POST'])
     def home():
-        
         if request.method == 'POST':
             #info = session['patient_info']
             if request.form.get('type') == 'log':
@@ -92,13 +82,9 @@ def routs(app):
                 pas = request.form.get('log-pass')
                 x = stuff.patient('', pas, email)
                 if x.login():
-                    session.clear()
+                    if 'patient_info' in session:
+                        session['patient_info']['id'] = '0000'
                     session['patient_info'] = {
-                        'first-name': x.name,
-                        'last-name': x.lname,
-                        'email': x.email,
-                        'phone': x.phone,                       
-                        'Age': x.age,
                         'id' : x.getId()
                     }
                 else:
@@ -113,13 +99,9 @@ def routs(app):
                 age = request.form.get('age')
                 x = stuff.patient(fname, pas, email, lname, phone, age)                    
                 if(x.signin()):
-                    session.clear()
+                    if 'patient_info' in session:
+                        session['patient_info']['id'] = '0000'
                     session['patient_info'] = {
-                        'first-name': x.name,
-                        'last-name': x.lname,
-                        'email': x.email,
-                        'phone': x.phone,                       
-                        'Age': x.age,
                         'id' : x.getId()
                     }
                 else:

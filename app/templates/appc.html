@@ -44,7 +44,7 @@
                             <p> Waiting time: <span style="font-size: 14px;">Data not available.</span></p>
                         {% endif %}
 
-                    <p> numOfpaientBefore {{ app.Before }}</p>
+                    <p> Numbers of patients before you: {{ app.Before }}</p>
 
                     <div>
                         <div class="content__footer">
@@ -167,19 +167,19 @@
                 <div>
                     
                     <input name="type" value="app" hidden>
-                    <input type = "email" name="email" value=""  placeholder="Email">
+                    <input class="em" type = "email" name="email" value=""  placeholder="Email">
                     <input name="doctorId" value="{{DocId}}" hidden>
                     <input name="clinicId" value="{{clinic.getId()}}" hidden>
                     {% for day in days %}
                     <p>
-                        <input type="radio" id="option1" name="Day" value="{{app_.avTime(DocId, day[1])}},{{day[1]}}"> <span> {{ app_.avTime(DocId, day[1])}}</span>
+                        <input type="radio" class="option" name="Day" value="{{app_.avTime(DocId, day[1])}},{{day[1]}}"> <span> {{ app_.avTime(DocId, day[1])}}</span>
                         <label for="option1"> {{day[0]}} {{day[1]}} </label><br>
                     </p>
                     {% endfor %}
 
                     <div>
                         <div class="content__footer">
-                            <input type="submit" value="Make an appointment" class="pure-button pure-button-primary s"><br>
+                            <input type="submit" value="Make an appointment" class="pure-button pure-button-primary s" disabled><br>
                         </div>
                         
                         <span style="font-size: 11px; color: #f76b8a; border:unset; background-color: #eaf6f6;">*The time is flex the clinic may late it for any resone Just be informed we will tell you if it is change</span>

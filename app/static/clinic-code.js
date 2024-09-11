@@ -97,4 +97,38 @@
 
   })
 
+  $('.em').keyup(function(){
+    f = 1
+    if ($(this).val() == '') {
+      $(this).css("border-color", 'red');
+      f=0
+    }else{
+      $(this).css("border-color", '#999')
+    }
+    selected = $('input[name="Day"]:checked').val();
+    
+    if (!selected) {
+      f=0
+    }
+
+    if (f) {
+      $(".app .s").prop("disabled", false);
+    } else {
+      $(".app .s").prop("disabled", true);
+    }
+
+    });
+
+    
+  $('.option').click(function(){
+
+    var selected = $('input[name="Day"]:checked').val();
+    
+    if (selected && !($(".em").val() == '')) {
+      $(".app .s").prop("disabled", false);
+   } else {
+      $(".app .s").prop("disabled", true);
+   }
+  });
+
   
