@@ -24,10 +24,13 @@ def routs(app):
                 
                 if x.login():
                     if 'clinic_info' in session:
-                        session['clinic_info']['id'] = '0000'
+                        session['clinic_info']['id'] = x.getId()
                     session['clinic_info'] = {
                         'id': x.getId()
                     }
+                    print(session['clinic_info'])
+                    print(x.getId())
+                    
                 else:
                     return redirect(url_for('r', wronge = "The password or email is uncorrect"))
                 
@@ -45,10 +48,12 @@ def routs(app):
                 
                 if(x.signin()):
                     if 'clinic_info' in session:
-                        session['clinic_info']['id'] = '0000'
+                        session['clinic_info']['id'] = x.getId()
                     session['clinic_info'] = {
                         'id': x.getId()
                     }
+                    print(session['clinic_info'])
+                    print(x.getId())
                 else:
                     return redirect(url_for('r', wronge = "The email is used"))
 
@@ -83,10 +88,12 @@ def routs(app):
                 x = stuff.patient('', pas, email)
                 if x.login():
                     if 'patient_info' in session:
-                        session['patient_info']['id'] = '0000'
+                        session['patient_info']['id'] = x.getId()
                     session['patient_info'] = {
                         'id' : x.getId()
                     }
+                    print(session['patient_info'])
+                    print(x.getId())
                 else:
                     return redirect(url_for('r', wronge = "The password or email is uncorrect"))
 
@@ -100,10 +107,12 @@ def routs(app):
                 x = stuff.patient(fname, pas, email, lname, phone, age)                    
                 if(x.signin()):
                     if 'patient_info' in session:
-                        session['patient_info']['id'] = '0000'
+                        session['patient_info']['id'] = x.getId()
                     session['patient_info'] = {
                         'id' : x.getId()
                     }
+                    print(session['patient_info'])
+                    print(x.getId())
                 else:
                    return redirect(url_for('r', wronge = "The email is used"))
 
