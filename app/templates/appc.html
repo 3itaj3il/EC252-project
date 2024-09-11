@@ -1,0 +1,193 @@
+{%extends "clinic_base.html" %} 
+{%block content%}
+
+{% set allapps = clinic.app_c(DocId)%}
+{% set doc = clinic.DocById(DocId)%}
+{% set days = clinic.avlDaysDateTime(DocId)%}
+{% set currApps = allapps[0] %}
+{% set todayApps = allapps[1] %}
+{% set otherApps = allapps[2] %}
+
+    <main class="patient-main apps" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+
+        <!-- CURRENT APPOINTMENT -->
+        <div>  
+        <p style="font-size: 14px; color:#333; box-shadow: 0px 1px 1px #333; margin-top: 20px;">Current appointment</p> 
+        {% for app in currApps%}
+            <div class="clinic-div app" style="background-color: #66bfbf; text-align: left;">
+                <div>
+                    <p><img style="display: inline; width: 40px; height: 40px; border-radius: 50%;" src="/logo/{{app.clinicId}}"><span style="font-size: small; display: inline; border: unset" > {{ app.clinicName() }} Clinic</span></p>
+                    <p> Dr. {{ app.doctorName() }}</p>
+                    <p> patient: {{ app.patientName() }}</p>
+                    
+                </div>
+                <div>
+                    
+                    <p> date : {{app.date}}</p>
+                    <p> time: {{ app.time }} </p>
+                    {% set format = app.wformat(app.wTime) %}
+                    {% if format %}
+                        {% if format|length == 3 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} Days, {{ format[1] }} Hour, {{ format[2] }} minutes.</span></p>
+
+                        {% elif format|length == 2 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} Hour, {{ format[1] }} minutes.</span></p>
+
+                        {% elif format|length == 1 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} minutes.</span></p>
+
+                        {% else %}
+                            <p> Waiting time: <span style="font-size: 14px;">Format is too long or unexpected.</span></p>
+
+                        {% endif %}
+                        {% else %}
+                            <p> Waiting time: <span style="font-size: 14px;">Data not available.</span></p>
+                        {% endif %}
+
+                    <p> numOfpaientBefore {{ app.Before }}</p>
+
+                    <div>
+                        <div class="content__footer">
+                            <a href="/appc/{{ app.doctorId }}/{{app.id}}">remove</a>
+                        </div>
+                        <div class="content__footer">
+                            <a href="/appc/{{ app.doctorId }}/{{app.id}}/5">Add 5 min</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
+
+        <!-- TODAY APPOINTMENTS -->
+        <div> 
+        <p style="font-size: 14px; color:#333; box-shadow: 0px 1px 1px #333; margin-top: 20px;">Today's appointments</p> 
+        {% for app in todayApps%}
+            <div class="clinic-div app" style="background-color: #66bfbf; text-align: left;">
+                <div>
+                    <p><img style="display: inline; width: 40px; height: 40px; border-radius: 50%;" src="/logo/{{app.clinicId}}"><span style="font-size: small; display: inline; border: unset" > {{ app.clinicName() }} Clinic</span></p>
+                    <p> Dr. {{ app.doctorName() }}</p>
+                    <p> patient: {{ app.patientName() }}</p>
+                    
+                </div>
+                <div>
+                    
+                    <p> date : {{app.date}}</p>
+                    <p> time: {{ app.time }} </p>
+                    {% set format = app.wformat(app.wTime) %}
+                    {% if format %}
+                        {% if format|length == 3 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} Days, {{ format[1] }} Hour, {{ format[2] }} minutes.</span></p>
+
+                        {% elif format|length == 2 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} Hour, {{ format[1] }} minutes.</span></p>
+
+                        {% elif format|length == 1 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} minutes.</span></p>
+
+                        {% else %}
+                            <p> Waiting time: <span style="font-size: 14px;">Format is too long or unexpected.</span></p>
+
+                        {% endif %}
+                        {% else %}
+                            <p> Waiting time: <span style="font-size: 14px;">Data not available.</span></p>
+                        {% endif %}
+
+                    <p> numOfpaientBefore {{ app.Before }}</p>
+
+                    <div>
+                        <div class="content__footer">
+                            <a href="/appc/{{ app.doctorId }}/{{app.id}}">remove</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
+
+        <!-- OTHER APPOINTMENTS -->
+        <div> <p style="font-size: 14px; color:#333; box-shadow: 0px 1px 1px #333; margin-top: 20px;">Others appointments</p> 
+        {% for app in otherApps%}
+            <div class="clinic-div app" style="background-color: #66bfbf; text-align: left;">
+                <div>
+                    <p><img style="display: inline; width: 40px; height: 40px; border-radius: 50%;" src="/logo/{{app.clinicId}}"><span style="font-size: small; display: inline; border: unset" > {{ app.clinicName() }} Clinic</span></p>
+                    <p> Dr. {{ app.doctorName() }}</p>
+                    <p> patient: {{ app.patientName() }}</p>
+                    
+                </div>
+                <div>
+                    
+                    <p> date : {{app.date}}</p>
+                    <p> time: {{ app.time }} </p>
+                    {% set format = app.wformat(app.wTime) %}
+                    {% if format %}
+                        {% if format|length == 3 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} Days, {{ format[1] }} Hour, {{ format[2] }} minutes.</span></p>
+
+                        {% elif format|length == 2 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} Hour, {{ format[1] }} minutes.</span></p>
+
+                        {% elif format|length == 1 %}
+                            <p> Waiting time: <span style="font-size: 14px;">{{ format[0] }} minutes.</span></p>
+
+                        {% else %}
+                            <p> Waiting time: <span style="font-size: 14px;">Format is too long or unexpected.</span></p>
+
+                        {% endif %}
+                        {% else %}
+                            <p> Waiting time: <span style="font-size: 14px;">Data not available.</span></p>
+                        {% endif %}
+
+                    <p> numOfpaientBefore {{ app.Before }}</p>
+
+                    <div>
+                        <div class="content__footer">
+                            <a href="/appc/{{ app.doctorId }}/{{app.id}}">remove</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- ADD APPOINTMENT -->
+    <div> <p style="font-size: 14px; color:#333; box-shadow: 0px 1px 1px #333; margin-top: 20px;"> Add appointment </p> 
+        <form class="pure-form" action="/appc" method="POST">
+            <div class="clinic-div app" style="background-color: #66bfbf; text-align: left;">
+                <div>
+                    <p><img style="display: inline; width: 40px; height: 40px; border-radius: 50%;" src="{{clinic.getImgUrl()}}"><span style="font-size: small; display: inline; border: unset" > {{ clinic.name }} Clinic</span></p>
+                    <p> Dr. {{doc[2]}} {{doc[3]}}</p>
+                    
+                </div>
+                <div>
+                    
+                    <input name="type" value="app" hidden>
+                    <input type = "email" name="email" value=""  placeholder="Email">
+                    <input name="doctorId" value="{{DocId}}" hidden>
+                    <input name="clinicId" value="{{clinic.getId()}}" hidden>
+                    {% for day in days %}
+                    <p>
+                        <input type="radio" id="option1" name="Day" value="{{app_.avTime(DocId, day[1])}},{{day[1]}}"> <span> {{ app_.avTime(DocId, day[1])}}</span>
+                        <label for="option1"> {{day[0]}} {{day[1]}} </label><br>
+                    </p>
+                    {% endfor %}
+
+                    <div>
+                        <div class="content__footer">
+                            <input type="submit" value="Make an appointment" class="pure-button pure-button-primary s"><br>
+                        </div>
+                        
+                        <span style="font-size: 11px; color: #f76b8a; border:unset; background-color: #eaf6f6;">*The time is flex the clinic may late it for any resone Just be informed we will tell you if it is change</span>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+    </main>
+
+{% endblock %}

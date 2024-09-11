@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoctorFinder-Clinic dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{url_for( 'static' , filename= 'clinic.css' )}}" />
+    <script src="https://kit.fontawesome.com/261aeae689.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+
+    <div class="page-wrapper">
+        <div class="nav-wrapper">
+         <div class="grad-bar"></div>
+         <nav class="navbar">
+            <span> <i class="fa-solid fa-stethoscope" style="font-size: 20px;"></i> DoctorFinder </span>
+           <div class="menu-toggle" id="mobile-menu">
+             <span class="bar"></span>
+             <span class="bar"></span>
+             <span class="bar"></span>
+           </div>
+           <ul class="nav no-search">
+             <li class="nav-item"><a href="/clinic">Home</a></li>
+             <!-- <li class="nav-item"><a href="#">profile</a></li> -->
+             <li class="nav-item"><a href="#">Contact Us</a></li>
+             <i class="fas fa-search" id="search-icon"></i>
+             <input class="search-input" type="text" placeholder="Search..">
+           </ul>
+         </nav>
+         </div>
+
+
+         {% block content %} 
+         {% endblock %} 
+
+        <script src="{{url_for('static', filename = 'jquery-3.7.1.min.js')}}"></script>
+        <script src="{{url_for('static', filename = 'clinic-code.js' )}}"></script>
+</body>
+</html>
