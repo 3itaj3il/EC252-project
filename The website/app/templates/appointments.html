@@ -1,0 +1,27 @@
+{% extends "base_patient.html" %} 
+    {%block content%}
+<body>
+{% set doctor = clinic.DocById(DocId) %}
+{% set days = clinic.avlDaysDateTime(DocId)%}
+<div class="form">
+    <h1>Make an appointment</h1>
+    <div><img src ="{{ clinic.getImgUrl() }}" style="width: 70px; height: 70px; border-radius: 50%; display: inline;"><a href="/clinic_page/{{clinic.getId()}}" style="all:unset; cursor: pointer;">{{clinic.name}}</a></div>
+    <div>Dr. {{doctor[2]}} {{doctor[3]}}</div>
+    <form class="pure-form" action="/home" method="POST">
+        {% for day in days %}
+        <input name="type" value="app" hidden>
+        <input name="patientId" value="{{user.getId()}}" hidden>
+        <input name="doctorId" value="{{DocId}}" hidden>
+        <input name="clinicId" value="{{clinic.getId()}}" hidden>
+        <p>
+            <input type="radio" class="option" name="Day" value="{{app_.avTime(DocId, day[1])}},{{day[1]}}"> <span> {{ app_.avTime(DocId, day[1])}}</span>
+            <label for="option"> {{day[0]}} {{day[1]}} </label><br>
+        </p>
+        {% endfor %}
+        <p> Price: {{doctor[7]}}</p>
+        <input type="submit" value="Make an appointment" class="pure-button pure-button-primary s" disabled><br>
+        <span style="font-size: 11px; color: #f76b8a; border:unset; background-color: #eaf6f6;">*The time is flex the clinic may late it for any resone Just be informed we will tell you if it is change</span>
+    </form>
+</div>
+</body>
+{% endblock %}
